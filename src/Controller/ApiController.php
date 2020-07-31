@@ -95,7 +95,7 @@ class ApiController extends AbstractController
         $entityManager->persist($comment);
         $entityManager->flush();
 
-        return $this->json($comment, 201, [],["groups" => "post:read"]);
+        return $this->json($comment, 201, []);
 
         } catch (NotEncodableValueException $encodableValueException) {
             return $this->json([
