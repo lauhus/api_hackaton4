@@ -7,9 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
+ * @ApiResource
  */
 class Post
 {
@@ -17,7 +19,7 @@ class Post
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("post:read")
+     * @Groups({"post:read","comment:read"})
      */
     private $id;
 
@@ -34,13 +36,13 @@ class Post
     private $photo_poisson;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Groups("post:read")
      */
     private $taille_poisson;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Groups("post:read")
      */
     private $poids_poisson;
@@ -71,7 +73,7 @@ class Post
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="post_id")
-     * @Groups("post:read")
+     * @Groups({"post:read"})
      */
     private $comments;
 

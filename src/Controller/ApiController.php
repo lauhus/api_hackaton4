@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use App\Entity\Comment;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,4 +60,19 @@ class ApiController extends AbstractController
                 ], 400);
         }
     }
+
+//     /**
+//      * @Route("/api/comment", name="api_comment_index", methods = {"GET"})
+//      * @param CommentRepository $commentRepository
+//      * @param NormalizerInterface $normalizer
+//      * @return Response
+//      * @throws ExceptionInterface
+//      */
+//     public function comment(CommentRepository $commentRepository, SerializerInterface $serialize)
+//     {
+        
+//         return $this->json($commentRepository->findAll(), 200, [],["groups" => "comment:read"]);
+        
+//         //on peut ajouter en quatrième paramètre le filtre groupe
+//     }
 }

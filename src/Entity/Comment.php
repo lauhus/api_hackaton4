@@ -15,31 +15,31 @@ class Comment
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("post:read")
+     * @Groups({"post:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("post:read")
+     * @Groups({"post:read"})
      */
     private $nom_auteur_c;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("post:read")
+     * @Groups({"post:read"})
      */
     private $prenom_auteur_c;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("post:read")
+     * @Groups({"post:read"})
      */
     private $contenu;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("post:read")
+     * @Groups({"post:read"})
      */
     private $date_comment;
 
