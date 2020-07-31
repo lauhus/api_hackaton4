@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
+ * @ApiResource
  */
 class Comment
 {
@@ -32,7 +34,7 @@ class Comment
     private $prenom_auteur_c;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string" , length=400)
      * @Groups({"post:read"})
      */
     private $contenu;

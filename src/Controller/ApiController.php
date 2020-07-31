@@ -61,18 +61,47 @@ class ApiController extends AbstractController
         }
     }
 
-//     /**
-//      * @Route("/api/comment", name="api_comment_index", methods = {"GET"})
-//      * @param CommentRepository $commentRepository
-//      * @param NormalizerInterface $normalizer
-//      * @return Response
-//      * @throws ExceptionInterface
-//      */
-//     public function comment(CommentRepository $commentRepository, SerializerInterface $serialize)
-//     {
+    /**
+     * @Route("/api/comment", name="api_comment_index", methods = {"GET"})
+     * @param CommentRepository $commentRepository
+     * @param NormalizerInterface $normalizer
+     * @return Response
+     * @throws ExceptionInterface
+     */
+    public function comment(CommentRepository $commentRepository, SerializerInterface $serialize)
+    {
         
-//         return $this->json($commentRepository->findAll(), 200, [],["groups" => "comment:read"]);
+        return $this->json($commentRepository->findAll(), 200, []);
         
-//         //on peut ajouter en quatrième paramètre le filtre groupe
-//     }
+        //on peut ajouter en quatrième paramètre le filtre groupe
+    }
+
+    /**
+     * @Route ("/api/comment", name="api_comment_insert",methods={"POST"})
+     */
+    public function insert_comment(Request $request, SerializerInterface $serializer,EntityManagerInterface $entityManager,ValidatorInterface $validator)
+    {   
+        try{
+        $jsonRecu = $request->getContent();
+        $comment = $serializer->deserialize($jsonRecu,Comment::class,'json');
+        $comment->setDateComment(new \DateTime());
+
+        $errors=$validator->validate($comment);
+
+        if(count($errors) > 0){
+            return $this->json($errors, 400);
+        }
+
+        $entityManager->persist($comment);
+        $entityManager->flush();
+
+        return $this->json($comment, 201, [],["groups" => "post:read"]);
+
+        } catch (NotEncodableValueException $encodableValueException) {
+            return $this->json([
+                'status' => 400,
+                'message'=> $encodableValueException->getMessage()
+                ], 400);
+        }
+    }
 }
